@@ -52,3 +52,5 @@ def update_status(request, application_id):
 		application.save(update_fields=['status'])
 		messages.success(request, 'Application status updated.')
 	return redirect('employer_applications')
+
+
