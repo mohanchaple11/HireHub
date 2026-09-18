@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}{% if not user.is_authenticated %}<section class="landing-hero">
+    <div class="landing-copy">
+        <p class="landing-kicker">Welcome to HireHub</p>
+        <h1>Connect Job Seekers<br>with <span>Recruiters</span></h1>
+        <p>Find your dream job or hire the right candidate.<br>At HireHub, we make the hiring process simple, fast and
+            effective.</p>
+        <div class="landing-stats">
+            <div><strong>50+</strong><small>Active Jobs</small></div>
+            <div><strong>50+</strong><small>Happy Companies</small></div>
+        </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+        <div class="art-orbit orbit-one">⌕</div>
+        <div class="art-orbit orbit-two">▤</div>
+        <div class="art-orbit orbit-three">▥</div>
+        <div class="art-window"><strong>Job Search</strong><span></span><span></span><span></span><span></span></div>
+        <div class="art-person person-seeker"></div>
+        <div class="art-person person-recruiter"></div>
+    </div>
+</section>
+<section class="roles">
+    <div class="section-heading"><span></span>
+        <h2>Choose Your Role</h2>
+        <p>Join HireHub as a Job Seeker or Recruiter and get started today.</p>
+    </div>
+    <div class="role-grid">
+        <article class="role-card seeker">
+            <div class="role-icon">●</div>
+            <h3>Job Seeker</h3>
+            <p>Find jobs and build your career with HireHub.</p>
+            <ul>
+                <li>Register / Login</li>
+                <li>Manage Profile</li>
+                <li>Upload Resume</li>
+                <li>Search Jobs</li>
+                <li>Apply for Jobs</li>
+                <li>Track Applications</li>
+            </ul><a class="role-button" href="{% url 'register' %}?role=candidate">Join as Job Seeker <b>→</b></a>
+        </article>
+        <article class="role-card recruiter">
+            <div class="role-icon">▥</div>
+            <h3>Recruiter</h3>
+            <p>Find talented candidates for your company.</p>
+            <ul>
+                <li>Register / Login</li>
+                <li>Create Company Profile</li>
+                <li>Post Jobs</li>
+                <li>Manage Jobs</li>
+                <li>View Applicants</li>
+                <li>Update Application Status</li>
+            </ul><a class="role-button" href="{% url 'register' %}?role=employer">Join as Recruiter <b>→</b></a>
+        </article>
+    </div>
+</section>{% else %}<section class="dashboard">
+    <p class="eyebrow">Your HireHub workspace</p>
+    <h1>Welcome, {{ user.first_name|default:user.username }}.</h1>{% if user.profile.role == 'employer' %}<p>Manage your
+        hiring pipeline by setting up your company, posting roles, discovering talent, and reviewing applications.</p>
+    <p><a class="button" href="{% url 'company_manage' %}">Set up company</a> <a href="{% url 'manage_jobs' %}">Manage
+            jobs</a> <a href="{% url 'candidate_directory' %}">Browse candidates</a> <a
+            href="{% url 'employer_applications' %}">Review applications</a></p>{% else %}<p>Build your profile, upload
+        your resume, and find your next opportunity.</p>
+    <p><a class="button" href="{% url 'job_list' %}">Search jobs</a> <a href="{% url 'my_applications' %}">Track
+            applications</a></p>{% endif %}
+</section>{% endif %}{% endblock %}

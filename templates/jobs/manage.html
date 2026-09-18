@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}<section class="hero">
+    <div>
+        <p class="eyebrow">Recruiter workspace</p>
+        <h2>Build Your Perfect Team.</h2>
+        <p class="lede">Create, edit, and pause the roles your company is hiring for.</p>
+    </div><a class="button" href="{% url 'create_job' %}">Post a job</a>
+</section>
+<section class="job-grid">{% for job in jobs %}<article class="job">
+        <h2><a href="{% url 'job_detail' job.pk %}">{{ job.title }}</a></h2>
+        <p class="job-meta">{{ job.location }} · {{ job.get_employment_type_display }} · {% if job.is_active %}<span
+                class="status">Active</span>{% else %}<span class="muted">Paused</span>{% endif %}</p>
+        <p class="muted">{{ job.applications.count }} applicant{{ job.applications.count|pluralize }}</p><a
+            class="button secondary" href="{% url 'edit_job' job.pk %}">Edit job</a>
+        <a class="button outline" href="{% url 'delete_job' job.pk %}">Delete job</a>
+    </article>{% empty %}<p class="empty">You have not posted any jobs yet.</p>{% endfor %}</section>{% endblock %}

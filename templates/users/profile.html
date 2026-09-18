@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}<div class="profile-layout">
+    <section class="form-panel">
+        <p class="eyebrow">Your public presence</p>
+        <h1>Make your profile feel like you.</h1>
+        <p class="lede">Keep your details current so the right opportunities can find you.</p>
+        <form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Save
+                profile</button></form>
+    </section>
+    <aside class="profile-card">
+        <p class="eyebrow">Account type</p>
+        <h2>{{ profile.get_role_display }}</h2>
+        <p>Your profile is ready to support your HireHub journey.</p>
+    </aside>
+</div>{% endblock %}

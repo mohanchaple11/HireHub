@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}<section class="form-panel">
+    <p class="eyebrow">Recruiter workspace</p>
+    <h1>Set up your company.</h1>
+    <p class="lede">Give job seekers the context they need to understand your team.</p>
+    <form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Save company</button></form>
+</section>{% endblock %}

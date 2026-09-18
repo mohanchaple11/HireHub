@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}<div class="auth-layout">
+    <section class="form-panel">
+        <p class="eyebrow">Start here</p>
+        <h1>Make your next move.</h1>
+        <p class="lede">Create a HireHub account and bring your work search or hiring pipeline into focus.</p>
+        <form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Create account</button></form>
+        <p class="muted">Already registered? <a href="{% url 'login' %}">Log in</a>.</p>
+    </section>
+    <aside class="auth-aside">
+        <h2>Choose your path.</h2>
+        <p><strong>Candidate</strong><br>Build your profile, upload a resume, and track applications.</p>
+        <p><strong>Employer</strong><br>Post roles and review interested candidates.</p>
+    </aside>
+</div>{% endblock %}

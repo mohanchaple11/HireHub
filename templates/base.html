@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HireHub</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body>
+  <nav class="site-nav shell">
+    <a class="brand" href="{% url 'job_list' %}">Hire<span>Hub</span></a>
+    {% if user.is_authenticated %}
+      <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+      <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+      {% if user.profile.role == 'candidate' %}<a class="nav-link" href="{% url 'my_applications' %}">Applications</a>{% endif %}
+      {% if user.profile.role == 'employer' %}<a class="nav-link" href="{% url 'candidate_directory' %}">Talent</a><a class="nav-link" href="{% url 'employer_applications' %}">Applicants</a>{% endif %}
+      <div class="nav-actions">{% if user.profile.role == 'employer' %}<a class="button secondary" href="{% url 'company_manage' %}">Company</a><a class="button secondary" href="{% url 'manage_jobs' %}">Manage jobs</a>{% endif %}<form class="inline-form" method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="button secondary" type="submit">Log out</button></form></div>
+    {% else %}
+      <a class="nav-link nav-home" href="{% url 'dashboard' %}">Home</a><a class="nav-link" href="{% url 'job_list' %}">Jobs</a><a class="nav-link" href="{% url 'company_list' %}">Companies</a><div class="nav-actions"><a class="button outline" href="{% url 'login' %}">Login</a><a class="button" href="{% url 'register' %}">Register</a></div>
+    {% endif %}
+  </nav>
+  <main class="shell">{% for message in messages %}<p class="notice">{{ message }}</p>{% endfor %}{% block content %}{% endblock %}</main>
+  <footer class="site-footer"><div class="shell"><strong>Hire<span>Hub</span></strong><small>Jobs · Talent · Growth</small><small>© 2026 HireHub. All rights reserved.</small></div></footer>
+</body>
+</html>

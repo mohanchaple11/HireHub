@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}<div class="auth-layout">
+    <section class="form-panel">
+        <p class="eyebrow">Welcome back</p>
+        <h2>Welcome Back to HireHub</h2>
+        <p class="lede">Log in to keep your search, profile, and applications moving.</p>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Log in</button>
+        </form>
+        {% if user.is_authenticated %}
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">Log out</button>
+            </form>
+        {% endif %}
+        <p class="muted">Need an account? <a href="{% url 'register' %}">Create one</a>.</p>
+    </section>
+    <aside class="auth-aside">
+        <h2>One account, two paths.</h2>
+        <p>Find your next role as a candidate or build your team as an employer.</p>
+    </aside>
+</div>{% endblock %}

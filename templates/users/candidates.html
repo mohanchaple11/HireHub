@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero">
+    <div>
+        <p class="eyebrow">Registered talent</p>
+        <h2>Connect with talented professionals..</h2>
+        <p class="lede">Browse candidates who have joined HireHub and find the experience your team needs.</p>
+    </div>
+</section>
+<form class="search-bar" method="get"><input name="q" value="{{ query }}"
+        placeholder="Search name, username, or experience"><button type="submit">Search talent</button></form>
+<section class="candidate-grid">
+    {% for candidate in candidates %}
+    <article class="candidate-card">
+        <p class="eyebrow">Candidate</p>
+        <h2><a href="{% url 'candidate_detail' candidate.pk %}">{{ candidate.user.get_full_name|default:candidate.user.username }}</a></h2>
+        <p class="muted">@{{ candidate.user.username }}{% if candidate.user.email %} · {{ candidate.user.email }}{% endif %}</p>
+        {% if candidate.bio %}
+            <p>{{ candidate.bio|truncatewords:24 }}</p>
+        {% else %}
+            <p class="muted">This candidate has not added a bio yet.</p>
+        {% endif %}
+        <a class="button secondary" href="{% url 'candidate_detail' candidate.pk %}">View profile</a>
+    </article>
+    {% empty %}
+        <p class="empty">No registered candidates matched your search.</p>
+    {% endfor %}
+</section>
+{% endblock %}

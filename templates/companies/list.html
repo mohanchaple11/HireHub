@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<p class="eyebrow">The HireHub network</p>
+<h2>Connect with Great Companies.</h2>
+<section class="candidate-grid">
+    {% for company in companies %}
+    <article class="candidate-card">
+        <h2>{{ company.name }}</h2>
+        {% if company.location %}
+            <p class="muted">{{ company.location }}</p>
+        {% endif %}
+        <p>{{ company.description|default:'This company has not added a description yet.'|truncatewords:28 }}</p>
+        {% if company.website %}
+            <a href="{{ company.website }}">Visit website</a>
+        {% endif %}
+    </article>
+    {% empty %}
+        <p class="empty">No company profiles yet.</p>
+    {% endfor %}
+</section>
+{% endblock %}

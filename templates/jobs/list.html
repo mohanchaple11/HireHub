@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}<section class="hero">
+    <div>
+        <p class="eyebrow">Work, with more intention</p>
+        <h1>Find work that fits your life.</h1>
+        <p class="lede">Search thoughtful opportunities from teams building what comes next.</p>
+    </div>
+</section>
+<form class="search-bar" method="get"><input name="q" value="{{ query }}"
+        placeholder="Search title, skills, or location"><button type="submit">Search jobs</button></form>
+<section class="job-grid">{% for job in jobs %}<article class="job">
+        <h2><a href="{% url 'job_detail' job.pk %}">{{ job.title }}</a></h2>
+        <p class="job-meta">{{ job.location }} · {{ job.get_employment_type_display }}{% if job.salary %} · {{ job.salary }}{% endif %}</p>
+        <p>{{ job.description|truncatewords:24 }}</p>
+        <p class="muted">Posted by {{ job.employer.username }} on {{ job.created_at|date:"M j, Y" }}</p>
+    </article>{% empty %}<p class="empty">No jobs matched your search.</p>{% endfor %}</section>{% endblock %}

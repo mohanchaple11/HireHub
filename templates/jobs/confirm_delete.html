@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="form-panel">
+    <p class="eyebrow">Remove this listing</p>
+    <h1>Delete {{ job.title }}?</h1>
+    <p>This action cannot be undone. Applications for this job will also be removed.</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Delete job</button>
+        <a class="button outline" href="{% url 'manage_jobs' %}">Cancel</a>
+    </form>
+</section>
+{% endblock %}

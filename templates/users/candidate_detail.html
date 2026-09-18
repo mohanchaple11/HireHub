@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="profile-layout">
+    <section class="form-panel">
+        <p class="eyebrow">Candidate profile</p>
+        <h1>{{ candidate.user.get_full_name|default:candidate.user.username }}</h1>
+        <p class="lede">@{{ candidate.user.username }}{% if candidate.user.email %} · {{ candidate.user.email }}{% endif %}</p>
+        <h2>About</h2>
+        {% if candidate.bio %}
+            {{ candidate.bio|linebreaks }}
+        {% else %}
+            <p class="muted">This candidate has not added a bio yet.</p>
+        {% endif %}
+        {% if candidate.phone %}
+            <h2>Contact</h2>
+            <p>{{ candidate.phone }}</p>
+        {% endif %}
+    </section>
+    <aside class="profile-card">
+        <p class="eyebrow">Resume</p>
+        {% if candidate.resume %}
+            <h2>Ready to review</h2>
+            <p>This candidate has uploaded a resume.</p>
+            <a class="button" href="{{ candidate.resume.url }}">Download resume</a>
+        {% else %}
+            <h2>No resume yet</h2>
+            <p class="muted">The candidate has not uploaded a resume.</p>
+        {% endif %}
+        <p><a href="{% url 'candidate_directory' %}">Back to talent</a></p>
+    </aside>
+</div>
+{% endblock %}
